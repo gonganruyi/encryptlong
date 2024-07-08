@@ -5467,7 +5467,7 @@ var JSEncrypt = /** @class */ (function () {
         // Return the private representation of this key.
         return this.getKey().getPublicBaseKeyB64();
     };
-    JSEncrypt.version = "3.1.5";
+    JSEncrypt.version = "3.1.6";
     return JSEncrypt;
 }());
 
