@@ -2948,6 +2948,12 @@ var RSAKey = /** @class */ (function () {
             return null;
         }
         var h = c.toString(16);
+        if (h.length !== 256) {
+            var zeroLength = 256 - h.length;
+            for (var index = 0; index < zeroLength; index++) {
+                h = "0" + h;
+            }
+        }
         if ((h.length & 1) == 0) {
             return h;
         }
@@ -3046,20 +3052,16 @@ var RSAKey = /** @class */ (function () {
         for (;;) {
             for (;;) {
                 this.p = new BigInteger(B - qs, 1, rng);
-                if (this.p
-                    .subtract(BigInteger.ONE)
-                    .gcd(ee)
-                    .compareTo(BigInteger.ONE) == 0 &&
+                if (this.p.subtract(BigInteger.ONE).gcd(ee).compareTo(BigInteger.ONE) ==
+                    0 &&
                     this.p.isProbablePrime(10)) {
                     break;
                 }
             }
             for (;;) {
                 this.q = new BigInteger(qs, 1, rng);
-                if (this.q
-                    .subtract(BigInteger.ONE)
-                    .gcd(ee)
-                    .compareTo(BigInteger.ONE) == 0 &&
+                if (this.q.subtract(BigInteger.ONE).gcd(ee).compareTo(BigInteger.ONE) ==
+                    0 &&
                     this.q.isProbablePrime(10)) {
                     break;
                 }
@@ -3230,7 +3232,7 @@ var DIGEST_HEADERS = {
     sha256: "3031300d060960864801650304020105000420",
     sha384: "3041300d060960864801650304020205000430",
     sha512: "3051300d060960864801650304020305000440",
-    ripemd160: "3021300906052b2403020105000414"
+    ripemd160: "3021300906052b2403020105000414",
 };
 function getDigestHeader(name) {
     return DIGEST_HEADERS[name] || "";
@@ -5467,7 +5469,7 @@ var JSEncrypt = /** @class */ (function () {
         // Return the private representation of this key.
         return this.getKey().getPublicBaseKeyB64();
     };
-    JSEncrypt.version = "3.1.6";
+    JSEncrypt.version = "3.1.7";
     return JSEncrypt;
 }());
 
